@@ -55,14 +55,11 @@ This function is the core to generate metadata to evaluate precipitation. In par
     + *Irrigation/Dirt*
     + (*NaN* if in one step evaluation couldn't be possible due missing data)
     
-## Model Flowchart
-
-![](C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/figs/img_ESOLIP_flowchart.PNG)
-![](C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/figs/img_ESOLIP_flowchart_2.PNG)
-
-
+## Model Flowchart (To simplify!)
+![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_ESOLIP_flowchart.PNG)
+![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_ESOLIP_flowchart_2.PNG)
     
-##References:
+## References:
 [1] Mair, E., Bertoldi, G., Leitinger, G., Della Chiesa, S., Niedrist, G., and Tappeiner, U.: ESOLIP - estimate of solid and liquid precipitation at sub-daily time resolution by combining snow height and rain gauge measurements, Hydrol. Earth Syst. Sci. Discuss., 10, 8683-8714, doi:10.5194/hessd-10-8683-2013, 2013.
 
 

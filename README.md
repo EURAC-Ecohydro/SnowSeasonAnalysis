@@ -11,7 +11,7 @@ Installation
 
 ### To complete!!!
 
-Clone the package from <https://github.com/EURAC-Ecohydro/SnowSeason_analysis>
+Clone the package from <https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis>
 
 How to use
 ----------
@@ -22,5 +22,5 @@ In folder **R** there are some functions used by scripts in inst folder
 
 In folder **data** there are subfolders where put input data, support files, climareport, and a folder where scripts save outputs
 
-[Package Documentetion: Vignette](https://github.com/EURAC-Ecohydro/SnowSeason_analysis/SnowSeasonAnalysis.Rmd)
----------------------------------------------------------------------------------------------------------------
+[Package Documentetion: Vignette](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/SnowSeasonAnalysis.Rmd)
+--------------------------------------------------------------------------------------------------------------------------

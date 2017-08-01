@@ -3,7 +3,7 @@ title: "Filtering_precipitation_readings.R"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -39,7 +39,7 @@ Climareport is a csv who we can find information about weather in Vinschgau vall
 
 * *.RData*: .RData file which contains:
     + **esolip_data** -> Time seried of Precip_T_Int15_Metadata
-    + **esolip_events** -> Steps results. Every single step of ESOLIP_QC function give in output some informations used for final result [More details about algorithm](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/vignettes/?????????.Rmd)
+    + **esolip_events** -> Steps results. Every single step of ESOLIP_QC function give in output some informations used for final result [More details about algorithm](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/vignettes/ESOLIP_QC.Rmd)
             
 * *.csv*: 2 .csv files:
     + **name of input file** that contains **esolip_data** -> input data + column Precip_T_Int15_Metadata
@@ -72,5 +72,5 @@ Open script *Filtering_precipitation_readings.R* and:
 7.  Run **Section 3** to save output (Decide which type of output you want)
 
 
-##References:
+## References:
 [1] Mair, E., Bertoldi, G., Leitinger, G., Della Chiesa, S., Niedrist, G., and Tappeiner, U.: ESOLIP - estimate of solid and liquid precipitation at sub-daily time resolution by combining snow height and rain gauge measurements, Hydrol. Earth Syst. Sci. Discuss., 10, 8683-8714, doi:10.5194/hessd-10-8683-2013, 2013.

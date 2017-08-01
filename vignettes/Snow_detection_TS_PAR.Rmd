@@ -55,5 +55,5 @@ Open script *Snow_detection_TS_PAR.R* and:
     +   *.csv* is a dataframe built using different models time series
 
 
-##References:
+## References:
 Teubner, I.E., L. Haimberger, and M. Hantel, 2015: Estimating Snow Cover Duration from Ground Temperature. J. Appl. Meteor. Climatol., 54, 959-965, https://doi.org/10.1175/JAMC-D-15-0006.1 
