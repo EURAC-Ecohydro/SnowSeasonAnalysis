@@ -1,0 +1,46 @@
+header,unit,method
+BF5_PAR_Up,umol/m^2s^1,Avg
+BF5_PAR_Up_diff,umol/m^2s^1,Avg
+PAR_Soil_A,umol/m^2s^1,Avg
+PAR_Soil_A,umol/m2s1,Avg
+PAR_Soil_A,,Avg
+PAR_Soil_B,umol/m^2s^1,Avg
+PAR_Soil_C,umol/m^2s^1,Avg
+PAR_Soil_L,umol/m2s1,Avg
+PAR_Soil_LI,umol/m2s1,Avg
+PAR_Soil_LS,umol/m2s1,Avg
+PAR_Soil_SH_00,umol/m2s1,Avg
+PAR_Soil_T,umol/m2s1,Avg
+PAR_Up,umol/m2s1,Avg
+Precip_T_Int15,mm,Tot
+Precip_W_BucketCont,lt,Smp
+Precip_W_BucketCont_NRT,lt,Smp
+Precip_W_Cum_NRT,mm,Smp
+Precip_W_Int15,mm,Tot
+Precip_W_Int15,mm/15min,Tot
+Precip_W_Int15_NRT,mm,Tot
+Precip_W_Int15_NRT,mm/15min,Tot
+Precip_W_Int60,mm/h,Avg
+Precip_W_Int60_Max,mm/h,Max
+Precpi_W_Pluvio_Level,,Smp
+Precpi_W_Pluvio_Level,%,Smp
+RH,%,Smp
+Snow_Dist0,m,Avg
+Snow_Height,m,Smp
+Snow_Height,m,Avg
+Snow_Height_Qual,,Smp
+Snow_Height_Qual,,Avg
+Snow_Height_Std,m,Std
+Snow_Qual_Avg,,Avg
+SR_Sw,W/m2,Avg
+ST_CI_00,Deg C,Avg
+ST_CS_00,Deg C,Avg
+SWC_ST_A_02,Deg C,Avg
+SWC_ST_A_02_Std,Deg C,Std
+T_Air,Deg C,Avg
+TIMESTAMP,TS,
+Wind_Dir,Deg,WVc
+Wind_Dir,degrees,Smp
+Wind_Speed,m/s,WVc
+Wind_Speed,meters/second,Avg
+Wind_Speed_Max,meters/second,Max

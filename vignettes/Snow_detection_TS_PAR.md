@@ -1,0 +1,54 @@
+Snow\_detection\_TS\_PAR.R
+================
+
+Introduction
+------------
+
+The script Snow\_detection\_TS\_PAR.R in folder *inst* analyzes Soil Temperature (TS) and Photosynthetically active radiation (PAR) to extract snow presence near the station. The algoritm improve results obtained only with one of these elements. The algorithm check if soil temperature (@ 0 cm) has high or low value and how it is the daily amplitude. At the same time it check the daily ratio between PAR @ 2 m and @ 0 cm (soil level) and the daily maximum at soil level. Combining these infomarmations we can determinate the presence/absence of snow without ultrasonic snow sensor.
+
+Description of script
+---------------------
+
+-   **Section 1:** in this section you select input file to process. Input files are in folder *data/Input data*. After the selection the script import data as a zoo series
+
+-   **Section 2:** here you have to assign to each variable (soil\_temperature, phar\_up, phar\_down, snow\_height(optional)) the corresponding column names of zoo\_data. Plot the data for help
+
+-   **Section 3:** this section run different models and combining results
+
+-   **Section 4:** Save output as *.RData* for a visualizzation tool and as *.csv* to create a table
+
+Datasets
+--------
+
+**INPUT:**
+
+-   file selected in **Section 1** in folder *data/Input data*
+
+**OUTPUT:**
+
+-   *.RData* contains a list of models zoo series used by Visualize\_Snow\_detection\_TS\_PAR.R (a tool for a graphical analysis of snow detection) in folder *data/Output/Snow\_Detection\_RData/*
+-   *.csv* is a dataframe built using different models time series. Description code used: 0 -&gt; no snow on the station; 1 -&gt; snow on the station. In folder *data/Output/Snow\_Detection/*
+
+How to use
+----------
+
+Open script *Snow\_detection\_TS\_PAR.R* and:
+
+1.  Set **git folder**, the path where the package is download or used.
+
+2.  Run **Section 1** to explore data available in folder *data/Input data*
+
+3.  Select **file**, the station you want process (**Section 1.i**)
+
+4.  Run **Section 2** row by row to explore and select the best variables for TS and PAR
+
+5.  Run **Section 3** to produce output. This section combine results of different models used
+
+6.  Run **Section 4** to save outputs:
+    -   *.RData* contains a list of models zoo series used by Visualize\_Snow\_detection\_TS\_PAR.R (a tool for a graphical analysis of snow detection)
+    -   *.csv* is a dataframe built using different models time series
+
+References:
+-----------
+
+Teubner, I.E., L. Haimberger, and M. Hantel, 2015: Estimating Snow Cover Duration from Ground Temperature. J. Appl. Meteor. Climatol., 54, 959-965, <https://doi.org/10.1175/JAMC-D-15-0006.1>

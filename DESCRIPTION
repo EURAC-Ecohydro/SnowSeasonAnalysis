@@ -1,0 +1,10 @@
+Package: SnowSeasonAnalysis
+Type: Package
+Title: Analysis of snow and precipitation during winter season
+Version: 1.0
+Date: 2017-07-19
+Author: Brida Christian <Christian.Brida@eurac.edu>
+Maintainer: Brida Christian <Christian.Brida@eurac.edu>
+Description: The package has different tools for the analysis of winter precipitation, to filter snow height signal and to find snow presence using proxy variables
+License: LGPL (>= 2)
+RoxygenNote: 6.0.1

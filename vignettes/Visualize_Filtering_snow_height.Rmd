@@ -1,0 +1,46 @@
+---
+title: "Visualize_Filtering_snow_height.R"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction 
+
+The script Visualize_Filtering_snow_height.R in folder *inst* plot using dygraph the time series of snow height (HS) and the elaborations of this data. Differente color are used for original data (**HS_original**), snow height cleaned using a range threshold (**HS_range_QC**), snow height cleaned using a rete threshold (**HS_rate_QC**), snow height calibrated (**HS_calibrated**),  the snow height filtered with method selected in algorithm *Filtering_snow_height.R* (**HS_calibr_smoothed**), and the snow height smoothed  and checked with rate threshold (**HS_calibr_smooothed_rate_QC**).
+
+
+## Description of algorithm
+
+* **Section 1:** in this section the algorithm load data of station selected in section **INPUT**
+
+* **Section 2:** the script plot time series of snow height and some elaborations of data.
+
+## Plot description
+
+On the plot we can see:
+
+* **Plot1:** Snow Height data and elaborations of algorithm *Filtering_snow_height.R*. See color on palette:
+    + *HS_original* blue marine
+    + *HS_range_QC* orange
+    + *HS_rate_QC* violet
+    + *HS_calibrated* pink
+    + *HS_calibr_smoothed* green
+    + *HS_calibr_smooothed_rate_QC* ocher
+    
+    
+* **Example**
+<!-- ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/figs/img_snow_filtering.PNG) -->
+![](C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/figs/img_snow_filtering.PNG)
+
+
+## How to use
+
+Open script *Visualize_Snow_detection_TS_PAR.R* and:
+
+1.  Select **file**, the name of station to examine (**without .csv**)
+2.  Set **git folder**, the path where the package is download or used.
+3.  Run **Section 1** to import data
+4.  Run **Section 2** to visualize results using dygraphs
