@@ -46,7 +46,7 @@ This function is the core to generate metadata to evaluate precipitation. In par
     +   *Uncertain* 
     
     
-* **STEP 6: ** During summer months is higly unlikely that we have Snow melting. We distinguish 2 case, one if 0 mm/h < **Precip_T_Int15** < 0.2 mm/h, little precipitation that could be fog or dew which condenses on tipping bucket walls. The second case is for **Precip_T_Int15** > 0.2 mm/h that suggests Irrigation events or Dirt. The final classes are:
+* **STEP 6:** During summer months is higly unlikely that we have Snow melting. We distinguish 2 case, one if 0 mm/h < **Precip_T_Int15** < 0.2 mm/h, little precipitation that could be fog or dew which condenses on tipping bucket walls. The second case is for **Precip_T_Int15** > 0.2 mm/h that suggests Irrigation events or Dirt. The final classes are:
     + *No precipitation*
     + *Precipitation*
     + *Uncertain*
@@ -55,7 +55,7 @@ This function is the core to generate metadata to evaluate precipitation. In par
     + *Irrigation/Dirt*
     + (*NaN* if in one step evaluation couldn't be possible due missing data)
     
-## Model Flowchart (To simplify!)
+## Model Flowchart
 ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_ESOLIP_flowchart.PNG)
 ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_ESOLIP_flowchart_2.PNG)
 ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_ESOLIP_flowchart_3.PNG)
