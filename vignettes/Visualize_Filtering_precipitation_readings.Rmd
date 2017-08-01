@@ -33,8 +33,7 @@ The app shiny plot at the same time 2 plots:
 * **Plot2:** Snow Height (grey line). If on the station there aren't any sensors of snow height the Plot2 return a warning message!
 
 * **Example**
-<!-- ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/figs/img_Visualize_ESOLIP.PNG) -->
-![](C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/figs/img_Visualize_ESOLIP.PNG)
+![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_Visualize_ESOLIP.PNG)
 
 
 ## How to use

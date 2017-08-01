@@ -30,9 +30,7 @@ On the plot we can see:
     
     
 * **Example**
-<!-- ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/figs/img_snow_filtering.PNG) -->
-![](C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/figs/img_snow_filtering.PNG)
-
+![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_snow_filtering.PNG) 
 
 ## How to use
 

@@ -31,8 +31,7 @@ On the plot we can see:
 
 
 * **Example**
-<!-- ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/figs/img_Snow_detection.PNG) -->
-![](C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/figs/img_Snow_detection.PNG)
+![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_Snow_detection.PNG) 
 
 
 ## How to use
