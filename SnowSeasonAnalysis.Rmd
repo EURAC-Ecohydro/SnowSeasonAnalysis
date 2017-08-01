@@ -18,7 +18,7 @@ The third part of this package is a snow filtering tool. This tool want to incre
 In the package there are some scripts (folder **inst**):
 
 * **Filtering_precipitation_readings.R** that run and save the ESOLIP quality check algorithm. [More details](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/vignettes/Filtering_precipitation_readings.Rmd)
-* **Visualize_Filtering_precipitation_readings.R** that load results of Filtering_precipitation_readings.R and plot some graphs using *Shiny*.[More details](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/vignettes/Visualize_ESOLIP.Rmd)
+* **Visualize_Filtering_precipitation_readings.R** that load results of Filtering_precipitation_readings.R and plot some graphs using *Shiny*.[More details](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/vignettes/Visualize_Filtering_precipitation_readings.Rmd)
 * **Snow_detection_TS_PAR.R** that analyzes Soil Temperature (TS) and Photosynthetically active radiation (PAR) to detect the presence of snow at the station with a daily resolution.[More details](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/vignettes/Snow_detection_TS_PAR.Rmd)
 * **Visualize_Snow_detection_TS_PAR.R** that load results of Snow_detection_TS_PAR.R and plot some dynamic graphs. [More details](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/vignettes/Visualize_ESOLIP.Rmd)
 * **Filtering_snow_height.R** that filter snow height signal using some thresholds and some filtering techniques.[More details](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/tree/master/vignettes/Filtering_snow_height.Rmd)

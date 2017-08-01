@@ -3,7 +3,7 @@ title: "Filtering_precipitation_readings.R"
 output: github_document
 ---
 
-# Title: "Visualize_Snow_detection_TS_PAR.R"
+# Title: "Filtering_precipitation_readings.R"
 
 ## Introduction 
 
