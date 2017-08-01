@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-The R package SnowSeasonAnalysis contains some tools for the quality check of precipitation data and for snow analyis. 
+The R package SnowSeasonAnalysis contains some tools for the quality check of precipitation data and for snow analysis. 
 
 
 ## Installation
