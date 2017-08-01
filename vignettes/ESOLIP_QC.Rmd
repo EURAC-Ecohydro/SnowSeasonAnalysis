@@ -1,9 +1,9 @@
 ---
-title: "ESOLIP_QC"
+title: "ESOLIP_QC.R"
 output: github_document
 ---
 
-# ESOLIP_QC
+# Title: "ESOLIP_QC.R"
 
 ## Introduction
 

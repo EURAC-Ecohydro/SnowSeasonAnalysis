@@ -3,9 +3,7 @@ title: "Visualize_Snow_detection_TS_PAR.R"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+# Title: "Visualize_Snow_detection_TS_PAR.R"
 
 ## Introduction 
 

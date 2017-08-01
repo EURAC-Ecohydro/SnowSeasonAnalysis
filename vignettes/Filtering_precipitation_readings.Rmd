@@ -3,9 +3,7 @@ title: "Filtering_precipitation_readings.R"
 output: github_document
 ---
 
-```{r setup, include=FALSE, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+# Title: "Visualize_Snow_detection_TS_PAR.R"
 
 ## Introduction 
 
