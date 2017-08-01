@@ -54,7 +54,7 @@ This new column is the result of ESOLIP_QC function. It could contain 7 value :
 * *Uncertain:* precipitation not measured but to not exclude the possibility of losing of data
 * *SnowMelting:* precipitation recorded but improbable. Possible snow melting (during winter) 
 * *Irrigation/Dirt* :precipitation measured but probabily incorrect. Possible Irrigation or dirt in the tipping bucket
-* *NaN: * evaluation impossible due missing data of additional parameters (T_Air, RH, etc...)
+* *NaN:* evaluation impossible due missing data of additional parameters (T_Air, RH, etc...)
 
 
 ## How to use
