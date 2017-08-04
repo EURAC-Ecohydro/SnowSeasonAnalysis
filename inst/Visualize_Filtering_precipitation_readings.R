@@ -17,13 +17,15 @@ FILE_NAME="B3_2000m_TOTAL"    # <-- without .csv
 
 # You can process: B1_1000_TOTAL_2009_2016, B3_2000m_TOTAL, M3_total_2009_2016_15min (no snow_height),M0004 (no snow_height)
 
-git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
+setwd("~/Git/EURAC-Ecohydro/SnowSeasonAnalysis")
+git_folder=getwd()
+# git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
 
 # ====================
 
 # ====== Load .RData ======
 
-load(paste(git_folder,"data/Output/Precipitation_metadata_RData/ESQC_",FILE_NAME,".RData",sep = ""))
+load(paste(git_folder,"/data/Output/Precipitation_metadata_RData/ESQC_",FILE_NAME,".RData",sep = ""))
 esolip_data=esolip_output[[1]]
 esolip_events=esolip_output[[2]]
 
@@ -73,7 +75,7 @@ ui=shinyUI(fluidPage(
 
 esqc_data=esolip_data
 events=esolip_events
-input_data=read.csv(paste(git_folder,"data/Input_data/",FILE_NAME,".csv",sep = ""),stringsAsFactors = F)
+input_data=read.csv(paste(git_folder,"/data/Input_data/",FILE_NAME,".csv",sep = ""),stringsAsFactors = F)
 units=input_data[c(1,2),]
 rownames(input_data)=input_data[,1]
 data=cbind(input_data[-c(1,2),-1],esqc_data[,-1])
