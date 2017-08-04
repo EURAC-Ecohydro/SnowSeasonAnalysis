@@ -41,7 +41,7 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   elevation=ELEVATION 
   climareport=CLIMAREPORT
   # import data using function fun_read_data
-  source(paste(git_folder,"R/esqc_Read_data_metadata.R",sep=""))
+  source(paste(git_folder,"/R/esqc_Read_data_metadata.R",sep=""))
   zoo_data=fun_read_data(PATH,FILE)
   units=fun_read_units(PATH,FILE)
   original=zoo_data
@@ -50,7 +50,7 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   # Exclude precipitation data out of range 0-200 mm/h
   #------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  source(paste(git_folder,"R/esqc_Range.R",sep=""))
+  source(paste(git_folder,"/R/esqc_Range.R",sep=""))
   
   zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]=fun_range(DATA = zoo_data,VARIABLE = "Precip_T_Int15",git_folder)
   
@@ -74,7 +74,7 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   # Import Wet Bulb function and find Twb by T_Air and RH
   #------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  source(paste(git_folder,"R/esqc_Wet_Bulb_Calculator.R",sep=""))
+  source(paste(git_folder,"/R/esqc_Wet_Bulb_Calculator.R",sep=""))
   vett_Twb=c()
   
   T_Air=as.numeric(zoo_data[,which(colnames(zoo_data)=="T_Air")])

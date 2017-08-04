@@ -18,7 +18,7 @@ NULL
 
 fun_range=function(DATA,VARIABLE,git_folder){
   
-  range_data=read.csv(paste(git_folder,"data/Support files/Range_min_max.csv",sep = ""),stringsAsFactors = F)
+  range_data=read.csv(paste(git_folder,"/data/Support_files/Range_min_max.csv",sep = ""),stringsAsFactors = F)
   
   
   if(any(colnames(DATA) == VARIABLE)){
@@ -27,7 +27,7 @@ fun_range=function(DATA,VARIABLE,git_folder){
     MAX=range_data$MAX[which(range_data$VARIABLE==VARIABLE)]
     
     if(is.na(MIN) | is.na(MAX)){
-      warning(paste(paste("Set up  the range of admitted values for '",VARIABLE ,"'.",sep = ""),"See: ",paste(git_folder,"data/Support files/Range_min_max.csv",sep = ""),sep = "\n"))
+      warning(paste(paste("Set up  the range of admitted values for '",VARIABLE ,"'.",sep = ""),"See: ",paste(git_folder,"/data/Support_files/Range_min_max.csv",sep = ""),sep = "\n"))
     }
     
     raw=DATA[,which(colnames(DATA)==VARIABLE)]
