@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------------------------------------------------------------------------------
-# File Title:   Visualize_ESOLIP.R
+# File Title:   Visualize_Filtering_precipitation_readings.R
 # Description:  IMPORT RData AND VISUALIZE MODEL OUTPUT USING SHINY
 # Autor:        Christian Brida
 #               Institute for Alpine Environment
@@ -21,6 +21,9 @@ setwd("~/Git/EURAC-Ecohydro/SnowSeasonAnalysis")
 git_folder=getwd()
 # git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
 
+PRECIPITATION="Precip_T_Int15"
+
+SNOw_HEIGHT = "Snow_Height"
 # ====================
 
 # ====== Load .RData ======
@@ -56,7 +59,7 @@ ui=shinyUI(fluidPage(
     h3(strong(" Legend:"))
   ),
   fluidRow(
-    h5(strong(" Plot 1:")," the red line is the time series of hourly cumulated precipitation of a tipping bucket installed on the LTER station (Precip_T_Int15).")
+    h5(strong(" Plot 1:")," the red line is the time series of hourly cumulated precipitation of a tipping bucket installed on the LTER station (PRECIPITATION).")
   ),
   fluidRow(
     h5("The background has different colours based on classification of precipitation reading: ")
@@ -95,7 +98,7 @@ zoo_data=zoo(data[,-1], order.by = time_new)
 zoo_events=zoo(events, order.by = time_new)
 
 server=shinyServer(function(input, output) {
-  Precipitation=zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]
+  Precipitation=zoo_data[,which(colnames(zoo_data)=="PRECIPITATION")]
   val_index=zoo_events[,8]
   
   
@@ -146,8 +149,8 @@ server=shinyServer(function(input, output) {
     
   }
   
-  if(any(colnames(zoo_data)=="Snow_Height")){
-    HS=zoo_data[,which(colnames(zoo_data)=="Snow_Height")]
+  if(any(colnames(zoo_data)==SNOw_HEIGHT)){
+    HS=zoo_data[,which(colnames(zoo_data)==SNOw_HEIGHT)]
     HS1=HS
     HS2=HS
     n=merge(HS1,HS2)

@@ -42,6 +42,14 @@ Algorithm description:
     -   *Dew/Fog*
     -   *Irrigation/Dirt*
     -   (*NaN* if in one step evaluation couldn't be possible due missing data)
+-   **Numeric Classification:** assign numeric code to step 6. This numeric classification is used by script "Visualize\_Filtering\_precipitation\_readings.R"
+    -   0: *No precipitation*
+    -   1: *Precipitation*
+    -   9: *Uncertain*
+    -   5: *SnowMelting*
+    -   2: *Dew/Fog*
+    -   4: *Irrigation/Dirt*
+    -   NaN: *NaN*
 
 Model Flowchart
 ---------------

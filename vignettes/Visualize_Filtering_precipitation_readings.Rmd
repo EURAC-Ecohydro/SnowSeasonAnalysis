@@ -42,5 +42,7 @@ Open script *Visualize_Filtering_precipitation_readings.R* and:
 
 1.  Select **FILE_NAME**, the name of station to examine (**without .csv**)
 2.  Set **git folder**, the path where the package is download or used.
-3.  Run **Load .RData** to import .RData available in folder *data/Output/RData*
-4.  Run **Section 2** to launch Shiny app
+3.  Assign to PRECIPITATION the name of precipitation column of input file 
+4.  Assign to SNOW_HEIGHT the name of snow height column of input file 
+5.  Run **Load .RData** to import .RData available in folder *data/Output/RData*
+6.  Run **Section 2** to launch Shiny app

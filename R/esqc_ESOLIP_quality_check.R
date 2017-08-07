@@ -33,10 +33,12 @@ NULL
 #' @param PATH path of input folder
 #' @param FILE file in input folder to process (hourly aggregated)
 #' @param CLIMAREPORT Path and file of climareport.csv
-#' 
+#' @param git_folder local folder of cloned package
+#' @param PRECIPITATION names of precipitation column 
 
 
-ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
+ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder, 
+                   PRECIPITATION = "Precip_T_Int15", AIR_TEMPERATURE = "T_Air", RELATIVE_HUMIDITY = "RH", RADIATION = "SR_Sw"){
   
   elevation=ELEVATION 
   climareport=CLIMAREPORT
@@ -52,7 +54,7 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   
   source(paste(git_folder,"/R/esqc_Range.R",sep=""))
   
-  zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]=fun_range(DATA = zoo_data,VARIABLE = "Precip_T_Int15",git_folder)
+  zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]=fun_range(DATA = zoo_data,VARIABLE = PRECIPITATION,git_folder)
   
   #------------------------------------------------------------------------------------------------------------------------------------------------------
   # Evaluation of helpful condition for precipitation:
@@ -62,7 +64,7 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   # unfavorable == FALSE ==> Possible precipitation 
   #------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  unfavorable=zoo_data[,which(colnames(zoo_data)=="RH")]<50 & zoo_data[,which(colnames(zoo_data)=="SR_Sw")]>400
+  unfavorable=zoo_data[,which(colnames(zoo_data)==RELATIVE_HUMIDITY)]<50 & zoo_data[,which(colnames(zoo_data)==RADIATION)]>400
   
   unfavorable[unfavorable==TRUE]="Unlikely"
   unfavorable[unfavorable==FALSE]="Possible"
@@ -77,8 +79,8 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   source(paste(git_folder,"/R/esqc_Wet_Bulb_Calculator.R",sep=""))
   vett_Twb=c()
   
-  T_Air=as.numeric(zoo_data[,which(colnames(zoo_data)=="T_Air")])
-  RH=as.numeric(zoo_data[,which(colnames(zoo_data)=="RH")])
+  T_Air=as.numeric(zoo_data[,which(colnames(zoo_data)==AIR_TEMPERATURE)])
+  RH=as.numeric(zoo_data[,which(colnames(zoo_data)==RELATIVE_HUMIDITY)])
   
   # aa=Sys.time()
   
@@ -131,17 +133,17 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   # If unfavorable == T and Precip_T_Int15!=0 ==> SNOW MELTING 
   #------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  snow_melting=zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]!=0 & unfavorable=="Unlikely"
+  snow_melting=zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]!=0 & unfavorable=="Unlikely"
   qual_index=snow_melting
   qual_index[snow_melting==T]="Possible Snow Melting/Irrigation"
   
-  no_prec=zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]==0 & unfavorable=="Unlikely"
+  no_prec=zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]==0 & unfavorable=="Unlikely"
   qual_index[no_prec==T]="No precipitation"
   
-  prec=zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]!=0 & unfavorable=="Possible"
+  prec=zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]!=0 & unfavorable=="Possible"
   qual_index[prec==T]="Precipitation recorded"
   
-  possible=zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]==0 & unfavorable=="Possible"
+  possible=zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]==0 & unfavorable=="Possible"
   qual_index[possible==T]="Possible precipitation not recorded"
   
   qual_index[qual_index==F]=NA
@@ -273,8 +275,8 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   month=substring(index(zoo_data),6,7)
   result_index=s_index
   result_index[s_index=="SnowMelting" & month %in% c("06","07","08")& 
-                 zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]<=0.2 & zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]>0]="Dew/Fog"
-  result_index[s_index=="SnowMelting" & month %in% c("06","07","08")& zoo_data[,which(colnames(zoo_data)=="Precip_T_Int15")]>0.2]="Irrigation/Dirt"
+                 zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]<=0.2 & zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]>0]="Dew/Fog"
+  result_index[s_index=="SnowMelting" & month %in% c("06","07","08")& zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]>0.2]="Irrigation/Dirt"
   
   df_event=cbind(df_event[,-which(colnames(df_event)=="val_index")],as.data.frame(result_index),as.data.frame(val_index))
   
@@ -290,7 +292,7 @@ ESOLIP_QC=function(PATH,FILE, ELEVATION,CLIMAREPORT,git_folder){
   df_event=cbind(df_event[,-which(colnames(df_event)=="val_index")],as.data.frame(val_index))
   
   new_data=data.frame(index(zoo_data),df_event[,6])
-  colnames(new_data)=c("TIMESTAMP","Precip_T_Int15_Metadata")
+  colnames(new_data)=c("TIMESTAMP",paste(PRECIPITATION,"_Metadata",sep = ""))
   new_event=cbind(index(zoo_data),df_event)
   colnames(new_event)=c("TIMESTAMP","STEP1","STEP2","STEP3","STEP4","STEP5","STEP6","Numeric Classification")
   return(list(new_data, new_event))

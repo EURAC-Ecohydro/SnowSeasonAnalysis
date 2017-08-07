@@ -53,6 +53,17 @@ This function is the core to generate metadata to evaluate precipitation. In par
     + *Irrigation/Dirt*
     + (*NaN* if in one step evaluation couldn't be possible due missing data)
     
+
+* **Numeric Classification:** assign numeric code to step 6. This numeric classification is used by script "Visualize_Filtering_precipitation_readings.R"
+    + 0: *No precipitation*
+    + 1: *Precipitation*
+    + 9: *Uncertain*
+    + 5: *SnowMelting*
+    + 2: *Dew/Fog*
+    + 4: *Irrigation/Dirt*
+    + NaN: *NaN*
+    
+    
 ## Model Flowchart
 ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_ESOLIP_flowchart.PNG)
 ![](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/figs/img_ESOLIP_flowchart_2.PNG)
