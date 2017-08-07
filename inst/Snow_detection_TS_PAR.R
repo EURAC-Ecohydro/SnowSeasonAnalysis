@@ -28,10 +28,10 @@ git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Import functions to read data
-source(paste(git_folder,"R/sndet_read_data_metadata.R",sep = ""))
+source(paste(git_folder,"/R/sndet_read_data_metadata.R",sep = ""))
 
 # Define path and file to import
-path=paste(git_folder,"data/Input_data/",sep="")
+path=paste(git_folder,"/data/Input_data/",sep="")
 
 print(paste("File available:",dir(path,pattern = ".csv")))  # Show file available in folder 
 
@@ -85,7 +85,7 @@ PAR_UP=zoo_data[,which(colnames(zoo_data)==phar_up)]                 # Par_up
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 # Snow detection using Soil temperature
 #------------------------------------------------------------------------------------------------------------------------------------------------------
-source(paste(git_folder,"R/sndet_soil_temp_snow_detection.R",sep = ""))
+source(paste(git_folder,"/R/sndet_soil_temp_snow_detection.R",sep = ""))
 
 # SOIL_TEMPERATURE = ST
 # MEAN_ST_THRESHOLD = 3.5               # Suggested value: 3.5 . Units: deg C (daily mean)
@@ -108,7 +108,7 @@ snow_by_phar=fun_phar_snow_detection(PAR_UP = PAR_UP,PAR_DOWN = PAR_DOWN,RATIO_T
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 # Snow detection (Phar + Soil Temperarature)
 #------------------------------------------------------------------------------------------------------------------------------------------------------
-source(paste(git_folder,"R/sndet_snow_detection.R",sep = ""))
+source(paste(git_folder,"/R/sndet_snow_detection.R",sep = ""))
 
 snow_detect=fun_snow_detection(SOIL_TEMP_SNOW = snow_by_soil_temp, PHAR_SNOW = snow_by_phar)
 
@@ -133,4 +133,4 @@ detection=as.data.frame(detection)
 export=cbind(index(snow_detect),detection)
 colnames(export)=c("TIMESTAMP","Snow presence PAR + Soil Temp", "Snow presence PAR","Snow presence Soil Temp")
 
-write.csv(export, paste(git_folder,"data/Output/Snow_Detection/Snow_presence_",file,sep=""),quote = F,row.names = F)
+write.csv(export, paste(git_folder,"/data/Output/Snow_Detection/Snow_presence_",file,sep=""),quote = F,row.names = F)

@@ -21,7 +21,7 @@ calib_snow = T    #<- T to calbrate snow heigh using snow surveys, F if use raw 
 # ===============
 # ~~~~~~~~ Section 1 ~~~~~~~~ 
 
-load(paste(git_folder,"data/Output/Snow_Detection_RData/",file,".RData",sep = ""))
+load(paste(git_folder,"/data/Output/Snow_Detection_RData/",file,".RData",sep = ""))
 snow_height = output_for_Visualize_Snow_detection_TS_PAR[[1]]
 file = output_for_Visualize_Snow_detection_TS_PAR[[2]]
 zoo_data  = output_for_Visualize_Snow_detection_TS_PAR[[3]]
@@ -39,10 +39,10 @@ snow_by_phar = output_for_Visualize_Snow_detection_TS_PAR[[6]]
 # Time series should be filled before, or "virtual" snow survey should be done in when there is a value!
 
 # Import functions to calibrate HS
-source(paste(git_folder,"R/sndet_calibration_HS.R",sep = ""))
-source(paste(git_folder,"R/sndet_range.R",sep = ""))
+source(paste(git_folder,"/R/sndet_calibration_HS.R",sep = ""))
+source(paste(git_folder,"/R/sndet_range.R",sep = ""))
 
-folder_surveys=paste(git_folder,"data/Snow_Depth_Calibration/Snow_Depth_Calibration_",sep = "")
+folder_surveys=paste(git_folder,"/data/Snow_Depth_Calibration/Snow_Depth_Calibration_",sep = "")
 
 # check if snow height data are available
 if(any(colnames(zoo_data)==snow_height)){
@@ -66,7 +66,7 @@ if(any(colnames(zoo_data)==snow_height)){
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 # Plot Snow detection models (Phar + Soil Temperarature) using dygraphs
 #------------------------------------------------------------------------------------------------------------------------------------------------------
-source(paste(git_folder,"R/sndet_dygraphs_snow_detection.R",sep = ""))
+source(paste(git_folder,"/R/sndet_dygraphs_snow_detection.R",sep = ""))
 # source("H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/fun_dygraphs_snow_detection.R")
 if(calib_snow == T){
   SNOW = HS_calibr

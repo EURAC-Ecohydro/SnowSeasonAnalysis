@@ -22,7 +22,7 @@ git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
 # ===============
 # ~~~~~~~~ Section 1 ~~~~~~~~ 
 
-load(paste(git_folder,"data/Output/Snow_Filtering_RData/Snow_",file,".RData",sep = ""))
+load(paste(git_folder,"/data/Output/Snow_Filtering_RData/Snow_",file,".RData",sep = ""))
 
 HS_original = rdata_output[[1]]
 HS_range_QC = rdata_output[[2]]
