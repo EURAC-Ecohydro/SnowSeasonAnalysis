@@ -16,15 +16,15 @@ NULL
 #' 
 
 
-fun_rate=function(DATA,VARIABLE){
+fun_rate=function(DATA,VARIABLE,RATE){
   
-  rate_data=read.csv("H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Support files/Rate_min_max.csv",stringsAsFactors = F)
+  rate_data=read.csv(RATE,stringsAsFactors = F)
   
   MAX_DECREASE=rate_data$MAX_DECREASE[which(rate_data$VARIABLE==VARIABLE)]
   MAX_INCREASE=rate_data$MAX_INCREASE[which(rate_data$VARIABLE==VARIABLE)]
   
   if(is.na(MAX_DECREASE) | is.na(MAX_INCREASE)){
-    warning(paste(paste("Set up admitted rates (increase/decrease) for '",VARIABLE ,"'.",sep = ""),"See: H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Rate_min_max.csv",sep = "\n"))
+    warning(paste(paste("Set up admitted rates (increase/decrease) for '",VARIABLE ,"'.",sep = ""),"Missed file Rate_min_max.csv",sep = "\n"))
   }
   
   data_raw=DATA

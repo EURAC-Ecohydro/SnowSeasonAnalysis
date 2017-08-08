@@ -14,14 +14,17 @@
 
 # ==== INPUT ====
 
+
+#git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
+git_folder=getwd() 
 file = "B3_2000m_TOTAL"   # without .csv
-git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
 calib_snow = T    #<- T to calbrate snow heigh using snow surveys, F if use raw data
+load(paste(git_folder,"/data/Output/Snow_Detection_RData/",file,".RData",sep = ""))
 
 # ===============
 # ~~~~~~~~ Section 1 ~~~~~~~~ 
 
-load(paste(git_folder,"/data/Output/Snow_Detection_RData/",file,".RData",sep = ""))
+
 snow_height = output_for_Visualize_Snow_detection_TS_PAR[[1]]
 file = output_for_Visualize_Snow_detection_TS_PAR[[2]]
 zoo_data  = output_for_Visualize_Snow_detection_TS_PAR[[3]]

@@ -10,7 +10,7 @@
 
 Sys.setenv(TZ='Etc/GMT-1')
 library(zoo)
-library(signal)
+require(signal)
 
 # ~~~~~~ Section 1 ~~~~~~ 
 
@@ -31,9 +31,27 @@ print(paste("Example data:",files_available))
 
 # ====== INPUT ====== 
 
-file="B3_2000m_TOTAL.csv"
+# 1. file with snow heigth time series
 
+file="B3_2000m_TOTAL.csv"
+# label of snow height column
 SNOW_HEIGHT = "Snow_Height"
+
+# List here also the support files
+
+# 2. file with max and min range for snow height
+#   Set up parameters in table: "H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Support files/Range_min_max.csv"
+Range_min_max <- paste(git_folder,"/data/Support_files/Range_min_max.csv",sep = "")
+
+# 3. file with Values that have high increment or high decrement are considered outliers and substitute with 'NA'
+#   Set up parameters in table: "H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Support_files/Rate_min_max.csv"
+Rate_min_max <- paste(git_folder,"/data/Support_files/Rate_min_max.csv",sep = "")
+
+# 4. file with snow depth observations used for calibration of snow heigth sensor
+# it is supposed to end wiht the same name of the input meteo file: Snow_Depth_Calibration_B3_2000m_TOTAL.csv
+folder_surveys=paste(git_folder,"/data/Snow_Depth_Calibration/Snow_Depth_Calibration_",sep = "")
+
+
 # =================== 
 
 # ~~~~~~ Section 2 ~~~~~~ 
@@ -57,13 +75,12 @@ snow = zoo_data[,which(colnames(zoo_data)==SNOW_HEIGHT)]
 #
 # 1.Exctract selected variable from input data. 
 # 2.Values out of physical range are considered outliers and substitute with 'NA'
-#   Set up parameters in table: "H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Support files/Range_min_max.csv"
 
 # Import function to delete outliers (Range)
 source(paste(git_folder,"/R/fhs_range.R",sep = ""))
 
 # Exclude HS data out of range min/max set. Units: m 
-data_in_range=fun_range(DATA = zoo_data,VARIABLE = SNOW_HEIGHT)
+data_in_range=fun_range(DATA = zoo_data,VARIABLE = SNOW_HEIGHT, RANGE = Range_min_max)
 
 # Gap are filled with contant value (the last befor gap)
 data_in_range=na.locf(data_in_range,na.rm=F)
@@ -74,13 +91,12 @@ data_in_range=na.locf(data_in_range,na.rm=F)
 
 # 1.Exctract selected variable from input data. 
 # 2.Values that have high increment or high decrement are considered outliers and substitute with 'NA'
-#   Set up parameters in table: "H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Support files/Rate_min_max.csv"
 
 # Import function to delete outliers (Rate)
 source(paste(git_folder,"/R/fhs_rate.R",sep = ""))
 
 # Exclude HS data with high increse and high decrease (Comai thesis). Units: m/h 
-data_no_outliers=fun_rate(DATA = data_in_range,VARIABLE = SNOW_HEIGHT)
+data_no_outliers=fun_rate(DATA = data_in_range,VARIABLE = SNOW_HEIGHT, RATE = Rate_min_max)
 
 # Gap are filled with contant value (the last befor gap)
 data_no_outliers=na.locf(data_no_outliers,na.rm=F)
@@ -95,7 +111,6 @@ source(paste(git_folder,"/R/fhs_calibration_HS.R",sep = ""))
 
 snow_elab = data_no_outliers[,which(colnames(zoo_data)==SNOW_HEIGHT)]
 
-folder_surveys=paste(git_folder,"/data/Snow_Depth_Calibration/Snow_Depth_Calibration_",sep = "")
 
 # Calibration of HS using real and virtual snow surveys (we assume that at the end of season the snow height is 0 cm)
 data_calibr=fun_calibration_HS(DATA = snow_elab,FILE_NAME = file,PATH_SURVEYS = folder_surveys)
@@ -115,9 +130,9 @@ source(paste(git_folder,"/R/fhs_moving_average.R",sep = ""))
 
 
 # Apply a moving average with a window length of 5 (Mair et.al.). Units: h
-data_ma=fun_moving_average(DATA = HS_calibr, PERIOD_LENGTH = 5 )
+data_ma=fun_moving_average(DATA = data_calibr, PERIOD_LENGTH = 5 )
 
-# Gap are filled with contant value (the last befor gap)
+# Gaps are filled with contant value (the last befor gap)
 data_ma=na.locf(data_ma,na.rm=F)
 #-------------------------------------------
 
@@ -151,7 +166,7 @@ data_smooth=data_filt    # <- OPTION 2
 #- OUTLIERS ON FILTERED DATA ------------------------- 
 
 # Exclude HS smoothed with moving average data with high increse and high decrease (Comai thesis). Units: m/h 
-data_smooth_no_outliers=fun_rate(DATA = data_smooth,VARIABLE = SNOW_HEIGHT)                         # <--DATA could be data_ma
+data_smooth_no_outliers=fun_rate(DATA = data_smooth,VARIABLE = SNOW_HEIGHT, RATE = Rate_min_max)                         # <--DATA could be data_ma
 
 # Gap are filled with contant value (the last befor gap)
 data_smooth_no_outliers=na.locf(data_smooth_no_outliers,na.rm=F)

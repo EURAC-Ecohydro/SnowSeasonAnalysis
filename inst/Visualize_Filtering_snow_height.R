@@ -17,7 +17,8 @@ library(dygraphs)
 # ==== INPUT ====
 
 file = "B3_2000m_TOTAL"   # without .csv
-git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
+#git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
+git_folder=getwd() 
 
 # ===============
 # ~~~~~~~~ Section 1 ~~~~~~~~ 

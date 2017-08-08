@@ -17,7 +17,8 @@ require(dygraphs)
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 # ==== INPUT ====
 
-git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
+#git_folder="C:/Users/CBrida/Desktop/Git/Upload/SnowSeasonAnalysis/"
+git_folder=getwd() 
 
 # ===============
 
@@ -96,7 +97,7 @@ snow_by_soil_temp=fun_soil_temp_snow_detection(SOIL_TEMPERATURE = ST,MEAN_ST_THR
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 # Snow detection using Phar sensors (Up an soil)
 #------------------------------------------------------------------------------------------------------------------------------------------------------
-source(paste(git_folder,"R/sndet_phar_snow_detection.R",sep = ""))
+source(paste(git_folder,"/R/sndet_phar_snow_detection.R",sep = ""))
 
 # PAR_UP = PAR_UP
 # PAR_DOWN = PAR_DOWN
@@ -126,7 +127,7 @@ snow_detect[substring(index(snow_detect),6,7) %in% SUMMER_MONTHS]=0
 output_for_Visualize_Snow_detection_TS_PAR=list(snow_height,file,zoo_data,
                                                 snow_detect,snow_by_soil_temp,snow_by_phar )
 
-save(output_for_Visualize_Snow_detection_TS_PAR,file = paste(git_folder,"data/Output/Snow_Detection_RData/",substring(file,1,nchar(file)-4),".RData",sep = ""))
+save(output_for_Visualize_Snow_detection_TS_PAR,file = paste(git_folder,"/data/Output/Snow_Detection_RData/",substring(file,1,nchar(file)-4),".RData",sep = ""))
 
 detection=merge(snow_detect, snow_by_phar,snow_by_soil_temp)
 detection=as.data.frame(detection)

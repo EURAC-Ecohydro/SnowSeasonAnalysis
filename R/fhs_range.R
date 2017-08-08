@@ -16,9 +16,9 @@ NULL
 #' @param VARIABLE variable to apply filter min/max
 #' 
 
-fun_range=function(DATA,VARIABLE){
+fun_range=function(DATA,VARIABLE,RANGE){
   
-  range_data=read.csv("H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Support files/Range_min_max.csv",stringsAsFactors = F)
+  range_data=read.csv(RANGE,stringsAsFactors = F)
   
   
   if(any(colnames(DATA) == VARIABLE)){
@@ -27,7 +27,7 @@ fun_range=function(DATA,VARIABLE){
     MAX=range_data$MAX[which(range_data$VARIABLE==VARIABLE)]
     
     if(is.na(MIN) | is.na(MAX)){
-      warning(paste(paste("Set up  the range of admitted values for '",VARIABLE ,"'.",sep = ""),"See: H:/Projekte/Criomon/06_Workspace/BrC/Cryomon/03_R_Script/05_snow_filter/function/Range_min_max.csv",sep = "\n"))
+      warning(paste(paste("Set up  the range of admitted values for '",VARIABLE ,"'.",sep = ""),"Miseed file Range_min_max.csv",sep = "\n"))
     }
     
     raw=DATA[,which(colnames(DATA)==VARIABLE)]
