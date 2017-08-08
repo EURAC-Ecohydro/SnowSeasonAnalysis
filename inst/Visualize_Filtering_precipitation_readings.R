@@ -98,7 +98,7 @@ zoo_data=zoo(data[,-1], order.by = time_new)
 zoo_events=zoo(events, order.by = time_new)
 
 server=shinyServer(function(input, output) {
-  Precipitation=zoo_data[,which(colnames(zoo_data)=="PRECIPITATION")]
+  Precipitation=zoo_data[,which(colnames(zoo_data)==PRECIPITATION)]
   val_index=zoo_events[,8]
   
   
