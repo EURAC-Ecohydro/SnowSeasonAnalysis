@@ -18,7 +18,8 @@ library(signal)
 # Define your Git folder:
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 
-git_folder="C:/Users/CBrida/Desktop/Git/EURAC-Ecohydro/SnowSeasonAnalysis/"
+git_folder=getwd() 
+#git_folder="C:/Users/CBrida/Desktop/Git/EURAC-Ecohydro/SnowSeasonAnalysis/"
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 # Show data available
