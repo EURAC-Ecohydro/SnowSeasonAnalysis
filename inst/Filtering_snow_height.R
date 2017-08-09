@@ -107,14 +107,17 @@ data_no_outliers=na.locf(data_no_outliers,na.rm=F)
 #- CALIBRATION ----------------------------- 
 
 # Import functions to calibrate HS
-source(paste(git_folder,"/R/fhs_calibration_HS.R",sep = ""))
+source(paste(git_folder,"/R/fhs_calibration_HS_2.R",sep = ""))
 
 snow_elab = data_no_outliers[,which(colnames(zoo_data)==SNOW_HEIGHT)]
 
 
 # Calibration of HS using real and virtual snow surveys (we assume that at the end of season the snow height is 0 cm)
-data_calibr=fun_calibration_HS(DATA = snow_elab,FILE_NAME = file,PATH_SURVEYS = folder_surveys)
+data_calibr=fun_calibration_HS_2(DATA = snow_elab,FILE_NAME = file,PATH_SURVEYS = folder_surveys)
 
+# Gaps are filled with contant value (the last befor gap)
+data_calibr=na.locf(data_calibr,na.rm=F)
+#--------------------------------
 #------------------------------------------- 
 
 # ~~~~~~ Section 5 ~~~~~~ 
@@ -130,7 +133,7 @@ source(paste(git_folder,"/R/fhs_moving_average.R",sep = ""))
 
 
 # Apply a moving average with a window length of 5 (Mair et.al.). Units: h
-data_ma=fun_moving_average(DATA = data_calibr, PERIOD_LENGTH = 5 )
+data_ma=fun_moving_average(DATA = data_calibr, PERIOD_LENGTH = 5)
 
 # Gaps are filled with contant value (the last befor gap)
 data_ma=na.locf(data_ma,na.rm=F)

@@ -19,7 +19,8 @@ NULL
 fun_moving_average=function(DATA, PERIOD_LENGTH){
   
   data_raw_3=DATA
-  data_filtered=filter(data_raw_3,rep(1/PERIOD_LENGTH,PERIOD_LENGTH))
+  data_filtered=rollmean(x = data_raw_3,k = PERIOD_LENGTH,fill = NA)
+  # data_filtered=filter(data_raw_3,rep(1/PERIOD_LENGTH,PERIOD_LENGTH))
   data_filtered=zoo(data_filtered, order.by = index(data_raw_3))
   
   return(data_filtered)
