@@ -49,10 +49,10 @@ fun_calibration_HS_2=function(DATA,FILE_NAME,PATH_SURVEYS){
   }
   
   s_last=seq(ind[length(zoo_survey_mod)],length(ptot),by=1)
-  y_last=rep(q[length(zoo_survey_mod)-1],times = length(s_last))
+  y_last=rep(differ[length(zoo_survey_mod)],times = length(s_last))
   cal=c(cal,y_last)
 
-  # +m[length(zoo_survey_mod)-1]*s_last # to add at y_last if you want extend last linear calibration factor. (Not recommended)
+  # q[length(zoo_survey_mod)-1] + m[length(zoo_survey_mod)-1]*s_last # to add at y_last if you want extend last linear calibration factor. (Not recommended)
     
     
   HS_calibrated=ptot+cal
