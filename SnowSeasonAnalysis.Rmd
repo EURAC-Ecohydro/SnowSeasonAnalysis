@@ -28,23 +28,23 @@ In the package there are some scripts (folder **inst**):
 ## Required data
 Put in folder *data* the following data:
 
-1. In the folder *Climareport* add/update *Climareport.csv* 
+1. In the folder *Climareport* add/update *Climareport.csv* [See on Section 1](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/vignettes/Filtering_precipitation_readings.Rmd)
 
 2. In the folder *Input data* add/update *Station_xxx_yyy.csv*. Is has to be **hourly aggregated** and must have the following parameters:
       + **TIMESTAMP**: Format supported: **YYYY-MM-DD HH:MM**. Example: "2017-07-15 09:00"
-      + **precipitation**
-      + **air_temperature**
-      + **relative_humidity**
-      + **radiation**
-      + **SNOW_HEIGHT**
-      + **soil_temperature**
-      + **phar_up**
-      + **phar_down**
+      + **precipitation**: Units mm/h. Precipitation variable 
+      + **air_temperature**: Units deg C. Air temperature variable
+      + **relative_humidity**: Units %. Relative humidity variable
+      + **radiation**: Units W/m2. Solar Radiation variable
+      + **SNOW_HEIGHT**: Units m. Snow height variable
+      + **soil_temperature**: Units deg C . Soil temperature @ 0 cm 
+      + **phar_up**: Units W/m2. Photosynthetically active radiation on the station
+      + **phar_down**: Units W/m2. Photosynthetically active radiation at soil level
       
 3. In the folder *Support files* update (not necessary) **Range_min_max** to modify thresholds to detect ouliers using physical range of values
 
 4. In the folder *Support files* update (not necessary) **Rate_min_max** to modify thresholds to detect ouliers using possible rate of increasing/decreasing 
 
-5. In the folder *Snow_Depth_Calibration* add files **Snow_Depth_Calibration_file.csv** with snow sureveys and virtual snow calibration point (see snow height time series and insert the date of end of winter season. Set the value of snow height at this date as 0 cm) 
+5. In the folder *Snow_Depth_Calibration* add files **Snow_Depth_Calibration_file.csv** with snow sureveys and virtual snow calibration point (see snow height time series and insert the date of end of winter season. Set the value of snow height at this date as 0 cm)  [See on Section 3](https://github.com/EURAC-Ecohydro/SnowSeasonAnalysis/blob/master/vignettes/Filtering_snow_height.Rmd)
 
 
