@@ -14,7 +14,7 @@ Description of script
 
 -   **Section 1:** in this section you have to select *git\_folder* and *file* of data. This files must contain the column: **Snow\_Height**
 
--   **Section 2:** here the script import data and extract snow column called **Snow\_Height**. To change the name of snow column you have to substitute the text at row 49 (**Snow\_Heigh**) with the new name
+-   **Section 2:** here the script import data and extract snow column using the input section.
 
 -   **Section 3:** more realistic data are created in this section using snow depth calibration point. In the file **Snow\_Depth\_Calibration\_file.csv** in folder *data/Snow\_Depth\_Calibration/* you can insert real snow surveys (snow height under ultrasoni sensor), or virtual snow survey (observing time series and set the value at the dates of end of snow season as 0 cm). With these informations we can calibrate snow height time series. The calibration function apply a linear transformation between 2 snow depth measurements, and a constant transformation from the last snow survey and the end of time series.
 
@@ -26,8 +26,8 @@ Description of script
     -   *Snow\_file.Rdata* in folder *data/Output/Snow\_Filtering\_RData/* for visualization tool
     -   *Snow\_file.csv* in folder *data/Output/Snow\_Filtering/* for storage results. In this file you can find the original snow height time series, the snow height cleaned using a range threshold,the snow height cleaned using a rete threshold, the snow height calibrated, the snow height filtered with method selected, and the snow height smoothed and checked with rate threshold.
 
-Note on file Snow\_Depth\_Calibration\_\*\*\*\*\*\*\*\*.csv
------------------------------------------------------------
+Note on file *Snow\_Depth\_Calibration\_FILE.csv*
+-------------------------------------------------
 
 This file contain all snow surveys and snow calibration point used to calibrate raw data of ultrasonic snow sensor.
 
@@ -48,8 +48,8 @@ Open script *Filtering\_snow\_height.R* and:
 2.  Run **Section 1** (up to **INPUT**) to explore data available in folder *data/Input data*
 3.  Select the file (containing **Snow\_Height**) to process
 4.  Run **Section 2** to read data
-5.  Run **Section 3** to perform a quality check based on range and on rate of data
-6.  Run **Section 4** to calibrate snow height time series
+5.  Run **Section 3** to calibrate snow height time series
+6.  Run **Section 4** to perform a quality check based on range and on rate of data
 7.  Run **Section 5** (up to **INPUT**) to filter signal using moving average filter and Savitzky-Golay smoothing filters
 8.  Select in **INPUT** the data filtered you want to keep
 9.  Run the other part of **Section 5**
