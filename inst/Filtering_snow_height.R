@@ -9,8 +9,16 @@
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Sys.setenv(TZ='Etc/GMT-1')
-library(zoo)
-require(signal)
+
+if(!require("zoo")){
+  install.packages(zoo)
+  require("zoo")
+}
+if(!require("signal")){
+  install.packages(signal)
+  require("signal")
+}
+
 
 # ~~~~~~ Section 1 ~~~~~~ 
 
@@ -71,6 +79,29 @@ snow = zoo_data[,which(colnames(zoo_data)==SNOW_HEIGHT)]
 
 # ~~~~~~ Section 3 ~~~~~~ 
 
+#- CALIBRATION ----------------------------- 
+
+# Import functions to calibrate HS
+source(paste(git_folder,"/R/fhs_calibration_HS_2.R",sep = ""))
+
+# snow_elab = data_no_outliers[,which(colnames(zoo_data)==SNOW_HEIGHT)]
+
+# Calibration of HS using real and virtual snow surveys (we assume that at the end of season the snow height is 0 cm)
+data_calibr=fun_calibration_HS_2(DATA = snow,FILE_NAME = file,PATH_SURVEYS = folder_surveys)
+
+# Gaps are filled with contant value (the last befor gap)
+# data_calibr=na.locf(data_calibr,na.rm=F)
+data_calibr=na.fill(object = data_calibr,fill = "extend")
+
+
+zero=zoo(seq(1,length(data_calibr),by=1),order.by = index(data_calibr))
+zoo_calibr=merge(data_calibr,zero)
+colnames(zoo_calibr)=c(SNOW_HEIGHT, "zero")
+
+#------------------------------------------- 
+
+# ~~~~~~ Section 4 ~~~~~~ 
+
 #- EXCLUDE DATA OUT OF RANGE ---------------
 #
 # 1.Exctract selected variable from input data. 
@@ -80,10 +111,12 @@ snow = zoo_data[,which(colnames(zoo_data)==SNOW_HEIGHT)]
 source(paste(git_folder,"/R/fhs_range.R",sep = ""))
 
 # Exclude HS data out of range min/max set. Units: m 
-data_in_range=fun_range(DATA = zoo_data,VARIABLE = SNOW_HEIGHT, RANGE = Range_min_max)
+data_in_range=fun_range(DATA = zoo_calibr,VARIABLE = SNOW_HEIGHT, RANGE = Range_min_max)
 
 # Gap are filled with contant value (the last befor gap)
-data_in_range=na.locf(data_in_range,na.rm=F)
+# data_in_range=na.locf(data_in_range,na.rm=F)
+data_in_range=na.fill(object = data_in_range,fill = "extend")
+
 
 #------------------------------------------- 
 
@@ -99,25 +132,9 @@ source(paste(git_folder,"/R/fhs_rate.R",sep = ""))
 data_no_outliers=fun_rate(DATA = data_in_range,VARIABLE = SNOW_HEIGHT, RATE = Rate_min_max)
 
 # Gap are filled with contant value (the last befor gap)
-data_no_outliers=na.locf(data_no_outliers,na.rm=F)
-#------------------------------------------- 
 
-# ~~~~~~ Section 4 ~~~~~~ 
-
-#- CALIBRATION ----------------------------- 
-
-# Import functions to calibrate HS
-source(paste(git_folder,"/R/fhs_calibration_HS_2.R",sep = ""))
-
-snow_elab = data_no_outliers[,which(colnames(zoo_data)==SNOW_HEIGHT)]
-
-
-# Calibration of HS using real and virtual snow surveys (we assume that at the end of season the snow height is 0 cm)
-data_calibr=fun_calibration_HS_2(DATA = snow_elab,FILE_NAME = file,PATH_SURVEYS = folder_surveys)
-
-# Gaps are filled with contant value (the last befor gap)
-data_calibr=na.locf(data_calibr,na.rm=F)
-#--------------------------------
+# data_no_outliers=na.locf(data_no_outliers,na.rm=F)
+data_no_outliers=na.fill(object = data_no_outliers,fill = "extend")
 #------------------------------------------- 
 
 # ~~~~~~ Section 5 ~~~~~~ 
@@ -136,7 +153,9 @@ source(paste(git_folder,"/R/fhs_moving_average.R",sep = ""))
 data_ma=fun_moving_average(DATA = data_calibr, PERIOD_LENGTH = 5)
 
 # Gaps are filled with contant value (the last befor gap)
-data_ma=na.locf(data_ma,na.rm=F)
+# data_ma=na.locf(data_ma,na.rm=F)
+data_ma=na.fill(object = data_ma,fill = "extend")
+
 #-------------------------------------------
 
 # ==== OPTION 2: SAVITKY-GOLAY FILTER ==== 
@@ -155,7 +174,8 @@ source(paste(git_folder,"/R/fhs_savitzky_golay_filter.R",sep = ""))
 data_filt=fun_savitzky_golay(DATA = data_calibr, FILTER_ORDER = 1,FILTER_LENGTH = 9)
 
 # Gap are filled with contant value (the last befor gap)
-data_filt=na.locf(data_filt,na.rm=F)
+# data_filt=na.locf(data_filt,na.rm=F)
+data_filt=na.fill(object = data_filt,fill = "extend")
 #------------------------------------------- 
 
 # ====== INPUT ====== 
@@ -172,18 +192,20 @@ data_smooth=data_filt    # <- OPTION 2
 data_smooth_no_outliers=fun_rate(DATA = data_smooth,VARIABLE = SNOW_HEIGHT, RATE = Rate_min_max)                         # <--DATA could be data_ma
 
 # Gap are filled with contant value (the last befor gap)
-data_smooth_no_outliers=na.locf(data_smooth_no_outliers,na.rm=F)
+# data_smooth_no_outliers=na.locf(data_smooth_no_outliers,na.rm=F)
+data_smooth_no_outliers=na.fill(object = data_smooth_no_outliers,fill = "extend")
 
 #------------------------------------------- 
 
 # ~~~~~~ Section 6 ~~~~~~ 
 
 #- SAVE DATA ----------------------------- 
-zoo_output=cbind(snow,data_in_range,data_no_outliers,data_calibr,data_smooth,data_smooth_no_outliers)
-rdata_output=list(snow,data_in_range,data_no_outliers,data_calibr,data_smooth,data_smooth_no_outliers)
+zoo_output=cbind(snow,data_in_range,data_calibr,data_no_outliers,data_smooth,data_smooth_no_outliers)
+rdata_output=list(snow,data_in_range,data_calibr,data_no_outliers,data_smooth,data_smooth_no_outliers)
+names(rdata_output)=c("HS_original","HS_calibrated","HS_range_QC", "HS_rate_QC", "HS_calibr_smoothed", "HS_calibr_smooothed_rate_QC" )
 output=as.data.frame(zoo_output)
 output=cbind(index(snow),output)
-colnames(output)=c("TIMESTAMP","HS_original","HS_range_QC", "HS_rate_QC","HS_calibrated", "HS_calibr_smoothed", "HS_calibr_smooothed_rate_QC" )
+colnames(output)=c("TIMESTAMP","HS_original","HS_calibrated","HS_range_QC", "HS_rate_QC", "HS_calibr_smoothed", "HS_calibr_smooothed_rate_QC" )
 
 save(rdata_output,file=paste(git_folder,"/data/Output/Snow_Filtering_RData/Snow_",substring(file,1,nchar(file)-4), ".RData",sep=""))
 write.csv(output,paste(git_folder,"/data/Output/Snow_Filtering/Snow_",file,sep = ""),quote = F,row.names = F)

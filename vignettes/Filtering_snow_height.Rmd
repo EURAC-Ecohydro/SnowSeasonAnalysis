@@ -16,9 +16,9 @@ The script Filtering_snow_height.R in folder *inst* want to increase quality of 
 
 * **Section 2:** here the script import data and extract snow column called **Snow_Height**. To change the name of snow column you have to substitute the text at row 49 (**Snow_Heigh**) with the new name
 
-* **Section 3:** in this section the algorithm substitute value out of range and value with high increasing/decreasing rate with NA. Data out of phisycal range are considered improbable, as data that change fastly. 
+* **Section 3:** more realistic data are created in this section using snow depth calibration point. In the file **Snow_Depth_Calibration_file.csv** in folder *data/Snow_Depth_Calibration/* you can insert real snow surveys (snow height under ultrasoni sensor), or virtual snow survey (observing time series and set the value at the dates of end of snow season as 0 cm). With these informations we can calibrate snow height time series. The calibration function apply a linear transformation between 2 snow depth measurements, and a constant transformation from the last snow survey and the end of time series.  
 
-* **Section 4:** more realistic data are created in this section using snow depth calibration point. In the file **Snow_Depth_Calibration_file.csv** in folder *data/Snow_Depth_Calibration/* you can insert real snow surveys (snow height under ultrasoni sensor), or virtual snow survey (observing time series and set the value at the dates of end of snow season as 0 cm). With these informations we can calibrate snow height time series.
+* **Section 4:** in this section the algorithm substitute value out of range and value with high increasing/decreasing rate with NA. Data out of phisycal range are considered improbable, as data that change fastly. 
 
 * **Section 5:** here the algorithm perform a filtering of snow height signal in two different ways. The first is a moving average filter, which has the problem of smoothing of true snowfall signal. The second is a Savitzky-Golay smoothing filter that seems to work better than moving average expecially setting small value for filter period. The smoothig process can create values with not realistic behaviour, so a rate thresholds as in section 3 is applied on  filtered value, as suggested in Comai thesis [2]. 
 At the end of **Section 5** you can select which is your favourite smoothing filter to save in **Section 6**
@@ -26,6 +26,18 @@ At the end of **Section 5** you can select which is your favourite smoothing fil
 * **Section 6:** in this section the algorithm save a dataframe cointaining some partial results of filtering snow signal as:
     +   *Snow_file.Rdata* in folder *data/Output/Snow_Filtering_RData/* for visualization tool
     +   *Snow_file.csv* in folder *data/Output/Snow_Filtering/* for storage results. In this file you can find the original snow height time series, the snow height cleaned using a range threshold,the snow height cleaned using a rete threshold, the snow height calibrated, the snow height filtered with method selected, and the snow height smoothed  and checked with rate threshold.
+
+## Note on file Snow_Depth_Calibration_********.csv
+
+This file contain all snow surveys and snow calibration point used to calibrate raw data of ultrasonic snow sensor. 
+
+
+1.  The first column, called **date**, is the date and time of measurement, and the second, called **snow_height**, is the snow height at the station, as near as possible at the sensor.
+2.  The **date**  should be **hourly**, Date format is YYYY-MM-DD hh:mm (where mm is 00). Example:
+    +   Correct: 2017-02-15 15:00 
+    +   Incorrect: 2017-02-15 15:30 (minutes not admitted)
+3.  The **snow_height** should be in **meters**. You should convert snow surveys from cm to m (divide per 100)
+4.  Snow surveys should be orderd from the **oldest** to the **most recent**. Remember to reorder snow surveys every times you insert new one. If the snow surveys are not orederd the calibration don't work properly
 
 
 ## How to use
@@ -36,8 +48,8 @@ Open script *Filtering_snow_height.R* and:
 2.  Run **Section 1** (up to **INPUT**) to explore data available in folder *data/Input data* 
 3.  Select the file (containing **Snow_Height**) to process
 4.  Run **Section 2** to read data
-5.  Run **Section 3** to perform a quality check based on range and on rate of data
-6.  Run **Section 4** to calibrate snow height time series
+5.  Run **Section 3** to calibrate snow height time series
+6.  Run **Section 4** to perform a quality check based on range and on rate of data
 7.  Run **Section 5** (up to **INPUT**) to filter signal using moving average filter and Savitzky-Golay smoothing filters
 8.  Select in **INPUT** the data filtered you want to keep
 9.  Run the other part of **Section 5**
@@ -48,4 +60,4 @@ Open script *Filtering_snow_height.R* and:
 [1] William H. Press, Saul A. Teukolsky, William T. Vetterling, Brian P. Flannery, Numerical Recipes
 in C: The Art of Scientific Computing , 2nd edition, Cambridge Univ. Press, N.Y., 1992.
 
-[2] Comai Tiziana,Analisi spaziale e temporale delle precipitazioni nevose nelle alpi italiane, Rel. Rigon Riccardo, Università degli Studi di Trento, AA 2013/2014
+[2] Comai T. ,Analisi spaziale e temporale delle precipitazioni nevose nelle alpi italiane, Rel. Rigon Riccardo, Università degli Studi di Trento, AA 2013/2014

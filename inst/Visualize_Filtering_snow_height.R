@@ -26,16 +26,16 @@ git_folder=getwd()
 load(paste(git_folder,"/data/Output/Snow_Filtering_RData/Snow_",file,".RData",sep = ""))
 
 HS_original = rdata_output[[1]]
-HS_range_QC = rdata_output[[2]]
-HS_rate_QC = rdata_output[[3]]
-HS_calibrated = rdata_output[[4]]
+HS_calibrated = rdata_output[[2]]
+HS_range_QC = rdata_output[[3]]
+HS_rate_QC = rdata_output[[4]]
 HS_calibr_smoothed = rdata_output[[5]]
 HS_calibr_smooothed_rate_QC =  rdata_output[[6]]
 
-zoo_HS=merge.zoo(HS_original,
+zoo_HS=merge.zoo(HS_original, 
+                 HS_calibrated ,
                  HS_range_QC,
                  HS_rate_QC ,
-                 HS_calibrated ,
                  HS_calibr_smoothed,
                  HS_calibr_smooothed_rate_QC)
 
@@ -48,4 +48,5 @@ zoo_HS=merge.zoo(HS_original,
 dygraph(zoo_HS, main=paste("HS elaboration on",file))%>%dyRangeSelector() %>%
   dyAxis("y", label = "Snow_Height [m]") %>%
   dyOptions(colors = RColorBrewer::brewer.pal(6, "Dark2"))
+
 

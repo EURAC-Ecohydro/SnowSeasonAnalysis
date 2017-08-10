@@ -8,7 +8,7 @@ PAR_Soil_LI,,
 Precip_T_Int15,0,200
 Wind_Speed,,
 Wind_Dir,,
-Snow_Height,-0.1,1.2
+Snow_Height,-0.2,1.2
 Snow_Height_Std,,
 Snow_Height_Qual,,
 ST_CS_00,,
