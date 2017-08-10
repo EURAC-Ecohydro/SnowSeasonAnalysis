@@ -42,7 +42,7 @@ snow_by_phar = output_for_Visualize_Snow_detection_TS_PAR[[6]]
 # Time series should be filled before, or "virtual" snow survey should be done in when there is a value!
 
 # Import functions to calibrate HS
-source(paste(git_folder,"/R/sndet_calibration_HS.R",sep = ""))
+source(paste(git_folder,"/R/sndet_calibration_HS_2.R",sep = ""))
 source(paste(git_folder,"/R/sndet_range.R",sep = ""))
 
 folder_surveys=paste(git_folder,"/data/Snow_Depth_Calibration/Snow_Depth_Calibration_",sep = "")
@@ -54,7 +54,7 @@ if(any(colnames(zoo_data)==snow_height)){
   # Calibration of HS using end of snow season surveys "Virtual snow surveys" (Hypothesis, no snow --> HS=0)
   HS=zoo_data[,which(colnames(zoo_data)==snow_height)]
   
-  HS_calibr=fun_calibration_HS(DATA = HS,FILE_NAME = file,PATH_SURVEYS = folder_surveys)
+  HS_calibr=fun_calibration_HS_2(DATA = HS,FILE_NAME = file,PATH_SURVEYS = folder_surveys)
   HS_flag=1
 } else{
   

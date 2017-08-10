@@ -17,7 +17,7 @@ NULL
 #' @param RATIO_THRESHOLD Threshold of fraction of incoming PAR. Suggested value 0.1
 #' @param PAR_SOIL_THRESHOLD Threshold of PAR at soil level 
 
-fun_phar_snow_detection=function(PAR_UP,PAR_DOWN,RATIO_THRESHOLD,PAR_SOIL_THRESHOLD){
+fun_phar_snow_detection=function(PAR_UP,PAR_DOWN,RATIO_THRESHOLD = 0.1, PAR_SOIL_THRESHOLD = 75){
   
   # daily resampling --> daily time
   d_year <- substring(index(PAR_UP),1,4); d_month <- substring(index(PAR_UP),6,7); d_day <- substring(index(PAR_UP),9,10)

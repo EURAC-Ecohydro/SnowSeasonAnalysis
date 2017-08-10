@@ -32,8 +32,8 @@ fun_plot_models_HS=function(FILE, SNOW_HEIGHT,ST_MODEL, PAR_MODEL, MODEL){
     dySeries("TS",axis = "y",color = "red",fillGraph = T,stepPlot = T) %>%
     dySeries("PAR",axis = "y",color = "blue",fillGraph = T,stepPlot = T) %>%
     dySeries("TS+PAR",axis = "y",color = "green",fillGraph = T,stepPlot = T,strokeWidth = 1.5) %>%
-    dyAxis("y",valueRange = c(0,1.1),label = "Snow presence") %>%
-    dyAxis("y2",valueRange = c(0,1.1),label = "Snow Height [m]") %>%
+    dyAxis("y",valueRange = c(-0.2,1.1),label = "Snow presence") %>%
+    dyAxis("y2",valueRange = c(-0.2,1.1),label = "Snow Height [m]") %>%
     dyLegend(show = c("auto"),showZeroValues = T)
   
   return(graph)
@@ -64,8 +64,8 @@ fun_plot_models=function(FILE,ST_MODEL, PAR_MODEL, MODEL){
     dySeries("ST",axis = "y",color = "red",fillGraph = T,stepPlot = T) %>%
     dySeries("PAR",axis = "y",color = "blue",fillGraph = T,stepPlot = T) %>%
     dySeries("ST+PAR",axis = "y",color = "green",fillGraph = T,stepPlot = T,strokeWidth = 1.5) %>%
-    dyAxis("y",valueRange = c(0,1.1),label = "Snow presence") %>%
-    dyAxis("y2",valueRange = c(0,1.1),label = "Snow Height [m]") %>%
+    dyAxis("y",valueRange = c(-0.2,1.1),label = "Snow presence") %>%
+    dyAxis("y2",valueRange = c(-0.2,1.1),label = "Snow Height [m]") %>%
     dyLegend(show = c("auto"),showZeroValues = T)
   
   return(graph)

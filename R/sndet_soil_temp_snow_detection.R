@@ -20,7 +20,7 @@ NULL
 #' @param MEAN_ST_THRESHOLD Threshold of daily mean of soil temperature. Suggested value 3.5
 #' @param MEAN_ST_THRESHOLD Threshold of daily amplitude of soil temperature. Suggested value 3
 
-fun_soil_temp_snow_detection=function(SOIL_TEMPERATURE,MEAN_ST_THRESHOLD,AMPLITUDE_ST_THRESHOLD){
+fun_soil_temp_snow_detection=function(SOIL_TEMPERATURE,MEAN_ST_THRESHOLD = 3.5,AMPLITUDE_ST_THRESHOLD = 3){
   
   # daily resampling --> daily time
   d_year <- substring(index(SOIL_TEMPERATURE),1,4); d_month <- substring(index(SOIL_TEMPERATURE),6,7); d_day <- substring(index(SOIL_TEMPERATURE),9,10)
@@ -44,7 +44,7 @@ fun_soil_temp_snow_detection=function(SOIL_TEMPERATURE,MEAN_ST_THRESHOLD,AMPLITU
     ST_max=ST_max[-1,]
   }
   
-  # daily average
+  # daily minimum
   ST_day_min=aggregate(SOIL_TEMPERATURE,d_time,min,na.rm=F)
   ST_min=na.locf(merge(ST_NA,ST_day_min))[,-1]
   if(substring(index(ST_min)[1],11,12)=="00"){
