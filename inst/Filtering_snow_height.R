@@ -64,7 +64,6 @@ folder_surveys=paste(git_folder,"/data/Snow_Depth_Calibration/Snow_Depth_Calibra
 
 # ======================= 
 
-
 # ====== METHOD ====== 
 # Select one of smoothing method
 
@@ -225,5 +224,4 @@ if(SMOOTH_METHOD != "Moving_Average" & SMOOTH_METHOD != "Savitzky_Golay"){
   
   save(rdata_output,file=paste(git_folder,"/data/Output/Snow_Filtering_RData/Snow_",substring(file,1,nchar(file)-4), ".RData",sep=""))
   write.csv(output,paste(git_folder,"/data/Output/Snow_Filtering/Snow_",file,sep = ""),quote = F,row.names = F)
-  
 }

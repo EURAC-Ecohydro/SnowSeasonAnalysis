@@ -26,13 +26,58 @@ Description of script
     -   *Snow\_file.Rdata* in folder *data/Output/Snow\_Filtering\_RData/* for visualization tool
     -   *Snow\_file.csv* in folder *data/Output/Snow\_Filtering/* for storage results. In this file you can find the original snow height time series, the snow height cleaned using a range threshold,the snow height cleaned using a rete threshold, the snow height calibrated, the snow height filtered with method selected, and the snow height smoothed and checked with rate threshold.
 
-Note on file *Snow\_Depth\_Calibration\_FILE.csv*
--------------------------------------------------
+Datasets
+--------
 
-This file contain all snow surveys and snow calibration point used to calibrate raw data of ultrasonic snow sensor.
+**INPUT:**
+
+1.  **git\_folder**: source of package **SnowSeasonAnalysis**
+2.  **file**: name of .csv file to process available in folder */data/Input data*
+3.  **SNOW\_HEIGHT**: the column name of *file* corresponding with snow height parameter. Default (LTER stations) is "Snow\_Height"
+4.  **Range\_min\_max**: path of file containing range thresholds for every variable. Data out of range min/max are replaced with NA **(don't edit this path)**
+5.  **Rate\_min\_max**: path of file containing rate thresholds for every variable. Data out of range max increase/decrease are replaced with NA **(don't edit this path)**
+6.  **folder\_surveys**: path of file containing the snow depth calibration point **(don't edit this path)**. *Snow\_Depth\_Calibration\_file.csv* should be:
+    -   The first column, called **date**, is the date and time of measurement, and the second, called **snow\_height**, is the snow height at the station, as near as possible at the sensor.
+    -   The **date** should be **hourly**, date format is *YYYY-MM-DD hh:mm* (where mm is 00). Example:
+        -   Correct: 2017-02-15 15:00
+        -   Incorrect: 2017-02-15 15:30 (minutes not admitted)
+    -   The **snow\_height** should be in **meters**. You should convert snow surveys from cm to m (divide per 100)
+    -   Snow surveys should be orderd from the **oldest** to the **most recent**. Remember to reorder snow surveys every times you insert new one. If the snow surveys are not orederd the calibration don't work properly
+
+**METHOD:**
+
+Select in section METHOD the one of the following smoothing filter. Assign to **SMOOTH\_METHOD**: "Savitzky\_Golay"
+
+1.  *"Moving\_Avergae"*: apply to data quality checked a 5 hour moving average filter (Parameter setting manually: PERIOD\_LENGTH = 5). Data should be filled before (No NA are admitted)
+2.  *"Savitzky\_Golay"*: apply to data quality checked a Savitzky-Golay filter (Parameters setting manually:FILTER\_ORDER = 1,FILTER\_LENGTH = 9). Data should be filled before (No NA are admitted)
+
+**OUTPUT:**
+
+1.  **Snow\_file.RData**: in folder *data/Output/Snow\_Filtering\_RData/* an .RData file which contain a list of zoo time series of:
+    -   *HS\_original*: original data
+    -   *HS\_calibrated*: snow height calibrated
+    -   *HS\_range\_QC*: snow height cleaned using a range threshold
+    -   *HS\_rate\_QC*: snow height cleaned using a rete threshold
+    -   *HS\_calibr\_smoothed*: the snow height filtered with method selected in **SMOOTH\_METHOD**
+    -   *HS\_calibr\_smooothed\_rate\_QC*: snow height smoothed and checked with rate threshold
+
+2.  **Snow\_file.csv**: in folder *data/Output/Snow\_Filtering/* a.csv file which contains some time series of snow height and manipulation. The columns are:
+    -   *TIMESTAMP*: date and time of data
+    -   *HS\_original*: original data
+    -   *HS\_calibrated*: snow height calibrated
+    -   *HS\_range\_QC*: snow height cleaned using a range threshold
+    -   *HS\_rate\_QC*: snow height cleaned using a rete threshold
+    -   *HS\_calibr\_smoothed*: the snow height filtered with method selected in **SMOOTH\_METHOD**
+    -   *HS\_calibr\_smooothed\_rate\_QC*: snow height smoothed and checked with rate threshold
+
+Note: in the output names above the algorithm substitute automatically **"file"** with the name of station, setting in **file &lt;- "..."** (INPUT 2)
+
+**NOTE**
+
+Note on file *Snow\_Depth\_Calibration\_FILE.csv*. This file contain all snow surveys and snow calibration point used to calibrate raw data of ultrasonic snow sensor.
 
 1.  The first column, called **date**, is the date and time of measurement, and the second, called **snow\_height**, is the snow height at the station, as near as possible at the sensor.
-2.  The **date** should be **hourly**, Date format is YYYY-MM-DD hh:mm (where mm is 00). Example:
+2.  The **date** should be **hourly**, date format is *YYYY-MM-DD hh:mm* (where mm is 00). Example:
     -   Correct: 2017-02-15 15:00
     -   Incorrect: 2017-02-15 15:30 (minutes not admitted)
 
