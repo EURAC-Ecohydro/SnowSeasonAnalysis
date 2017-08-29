@@ -4,7 +4,8 @@
 \alias{fun_phar_snow_detection}
 \title{Snow presence derived from Phar sensor. Little radiation that hit soil and little fraction from incoming radiation suggest the presence of snow near the station}
 \usage{
-fun_phar_snow_detection(PAR_UP, PAR_DOWN, RATIO_THRESHOLD, PAR_SOIL_THRESHOLD)
+fun_phar_snow_detection(PAR_UP, PAR_DOWN, RATIO_THRESHOLD = 0.1,
+  PAR_SOIL_THRESHOLD = 75)
 }
 \arguments{
 \item{PAR_UP}{column of zoo data correspondig to PAR_Up (Photosintetically Active Radiation, at 2 meters)}

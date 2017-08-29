@@ -4,7 +4,7 @@
 \alias{fun_rate}
 \title{Function that exclude data having a rate too high (increase/decrease too fast)}
 \usage{
-fun_rate(DATA, VARIABLE)
+fun_rate(DATA, VARIABLE, RATE)
 }
 \arguments{
 \item{DATA}{zoo data}

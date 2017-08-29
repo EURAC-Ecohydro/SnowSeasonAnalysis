@@ -5,8 +5,8 @@
 \title{Snow presence derived from Soil Temperature sensor. Soil Temperature during snow presence has generally a little daily mean and small daily amplitude.
 # MEAN_ST_THRESHOLD = 3.5               # Suggested value: 3.5 . Units: deg C (daily mean)}
 \usage{
-fun_soil_temp_snow_detection(SOIL_TEMPERATURE, MEAN_ST_THRESHOLD,
-  AMPLITUDE_ST_THRESHOLD)
+fun_soil_temp_snow_detection(SOIL_TEMPERATURE, MEAN_ST_THRESHOLD = 3.5,
+  AMPLITUDE_ST_THRESHOLD = 3)
 }
 \arguments{
 \item{SOIL_TEMPERATURE}{column of zoo data correspondig to PAR_Up (Photosintetically Active Radiation, at 2 meters)}
