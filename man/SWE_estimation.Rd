@@ -4,11 +4,14 @@
 \alias{SWE_estimation}
 \title{Snow presence derived from Phar sensor. Little radiation that hit soil and little fraction from incoming radiation suggest the presence of snow near the station}
 \usage{
-SWE_estimation(PATH, FILE, PATH_SNOW, FILE_SNOW, git_folder,
-  PRECIPITATION = "Precip_T_Int15", AIR_TEMPERATURE = "T_Air",
-  WIND_SPPED = "Wind_Speed")
+SWE_estimation(git_folder, PATH, FILE, PATH_SNOW, FILE_SNOW, PATH_ESOLIP_QC,
+  FILE_ESOLIP_QC, PRECIPITATION = "Precip_T_Int15",
+  AIR_TEMPERATURE = "T_Air", WIND_SPPED = "Wind_Speed",
+  INCREMENT_THRESHOLD = 0.001)
 }
 \arguments{
+\item{git_folder}{local folder where "package" is cloned}
+
 \item{PATH}{path of input data}
 
 \item{FILE}{name of file of input data (write under " " and ending with .csv)}
@@ -16,8 +19,6 @@ SWE_estimation(PATH, FILE, PATH_SNOW, FILE_SNOW, git_folder,
 \item{PATH_SNOW}{path of snow dataset created usign snow filtering algorithm}
 
 \item{FILE_SNOW}{name of snow file created usign snow filtering algorithm  (write under " " and ending with .csv)}
-
-\item{git_folder}{local folder where "package" is cloned}
 
 \item{PRECIPITATION}{names of column in input data corresponding with precipitation parameter}
 
