@@ -91,19 +91,19 @@ fun_read_metadata=function(PATH,FILE){
   }
   
   if(METADATA==T){
-  # convert data as numeric, except TIMESTAMP (1st column) and Precip_T_Int15_Metadata (last column)
-  # for(j in 2:(ncol(data)-1)){
-  #   data[,j]=as.numeric(data[,j])
-  # }
-  
-  # define a POSIXct time 
-  year <- substring(data[,1],1,4); month <- substring(data[,1],6,7); day <- substring(data[,1],9,10)
-  hour <- substring(data[,1],12,13); min  <- substr(data[,1],15,16);
-  date_chr <- paste(year, "-", month, "-", day, " ", hour, ":", min, ":00", sep="")
-  time <- as.POSIXct( strptime(x = date_chr, format = "%Y-%m-%d %H:%M:%S"), tz = 'Etc/GMT-1')
-  
-  # create a zoo variable
-  zoo_metadata=zoo(data[,ncol(data)], order.by = time)
+    # convert data as numeric, except TIMESTAMP (1st column) and Precip_T_Int15_Metadata (last column)
+    # for(j in 2:(ncol(data)-1)){
+    #   data[,j]=as.numeric(data[,j])
+    # }
+    
+    # define a POSIXct time 
+    year <- substring(data[,1],1,4); month <- substring(data[,1],6,7); day <- substring(data[,1],9,10)
+    hour <- substring(data[,1],12,13); min  <- substr(data[,1],15,16);
+    date_chr <- paste(year, "-", month, "-", day, " ", hour, ":", min, ":00", sep="")
+    time <- as.POSIXct( strptime(x = date_chr, format = "%Y-%m-%d %H:%M:%S"), tz = 'Etc/GMT-1')
+    
+    # create a zoo variable
+    zoo_metadata=zoo(data[,ncol(data)], order.by = time)
   }
   
   return(zoo_metadata)
@@ -124,3 +124,84 @@ fun_read_units=function(PATH,FILE){
   
   return(df)
 }
+
+#' Function that import and prepare data in the proper format for ESOLIP_QC
+#' 
+#' @param PATH path of input folder
+#' @param FILE file in input folder to process (hourly aggregated)
+#' 
+
+fun_read_output_data=function(PATH,FILE){
+  
+  # read data
+  data=read.csv(paste(PATH,FILE,sep = ""),stringsAsFactors = F)
+  
+  
+  # Check if in data table there is Precip_T_Int15_Metadata 
+  
+  if(colnames(data)[ncol(data)]=="Precip_T_Int15_Metadata"){
+    METADATA=T
+    warning(paste("OK! This file contains 'Precip_T_Int15_Metadata'.","  You can read it with 'fun_read_metadata' function.",sep = "\n"))
+  }else{
+    METADATA=F
+  }
+  
+  if(METADATA==T){
+    for(j in 2:(ncol(data)-1)){
+      data[,j]=as.numeric(data[,j])
+    }
+    
+    # define a POSIXct time 
+    year <- substring(data[,1],1,4); month <- substring(data[,1],6,7); day <- substring(data[,1],9,10)
+    hour <- substring(data[,1],12,13); min  <- substr(data[,1],15,16);
+    date_chr <- paste(year, "-", month, "-", day, " ", hour, ":", min, ":00", sep="")
+    time <- as.POSIXct( strptime(x = date_chr, format = "%Y-%m-%d %H:%M:%S"), tz = 'Etc/GMT-1')
+    
+    # create a zoo variable
+    zoo_data=zoo(data[,-c(1,ncol(data))], order.by = time)
+    
+  }else{
+    
+    # convert data as numeric, except TIMESTAMP (1st column) and Precip_T_Int15_Metadata (last column)
+    for(j in 2:ncol(data)){
+      data[,j]=as.numeric(data[,j])
+    }
+    
+    # define a POSIXct time 
+    year <- substring(data[,1],1,4); month <- substring(data[,1],6,7); day <- substring(data[,1],9,10)
+    hour <- substring(data[,1],12,13); min  <- substr(data[,1],15,16);
+    date_chr <- paste(year, "-", month, "-", day, " ", hour, ":", min, ":00", sep="")
+    time <- as.POSIXct( strptime(x = date_chr, format = "%Y-%m-%d %H:%M:%S"), tz = 'Etc/GMT-1')
+    
+    # create a zoo variable
+    zoo_data=zoo(data[,-1], order.by = time)
+  }
+  
+  return(zoo_data)
+}
+
+
+#' Function that import and prepare data in the proper format for ESOLIP_QC
+#' 
+#' @param PATH path of input folder
+#' @param FILE file in input folder to process (hourly aggregated)
+#' 
+
+fun_read_output_metadata=function(PATH,FILE){
+  
+  # read data
+  data=read.csv(paste(PATH,FILE,sep = ""),stringsAsFactors = F)
+  
+  # define a POSIXct time 
+  year <- substring(data[,1],1,4); month <- substring(data[,1],6,7); day <- substring(data[,1],9,10)
+  hour <- substring(data[,1],12,13); min  <- substr(data[,1],15,16);
+  date_chr <- paste(year, "-", month, "-", day, " ", hour, ":", min, ":00", sep="")
+  time <- as.POSIXct( strptime(x = date_chr, format = "%Y-%m-%d %H:%M:%S"), tz = 'Etc/GMT-1')
+  
+  # create a zoo variable
+  zoo_metadata=zoo(data, order.by = time)
+  
+  
+  return(zoo_metadata)
+}
+
