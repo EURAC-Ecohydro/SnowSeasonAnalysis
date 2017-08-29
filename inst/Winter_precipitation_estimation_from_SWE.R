@@ -54,9 +54,13 @@ path <- paste(git_folder,"/data/Input_data/",sep = "")      # <-- path of origin
 
 path_filtered_snow <- paste(git_folder,"/data/Output/Snow_Filtering/",sep = "")      # <-- path of snow dataset elaborated from "Filtering_snow_height.R" algorithms
 
+path_esolip_qc <- paste(git_folder,"/data/Output/Precipitation_metadata/ESOLIP_QC_Steps/",sep = "")      # <-- path of snow dataset elaborated from "Filtering_snow_height.R" algorithms
+
 file  <- "B3_2000m_TOTAL.csv" # <-- with .csv    # <--  name of file of original dataset 
 
 file_snow <- paste("Snow_",file,sep = "")        # <--  name of file of snow dataset 
+
+file_esolip_qc <- paste("ESQC_Steps_",file,sep = "")        # <--  name of file of snow dataset 
 
 precipitation = "Precip_T_Int15"    # <-- assign here the column name corresponding with precipitation parameter. Default (LTER stations) is "Precip_T_Int15" 
 
@@ -64,6 +68,7 @@ air_temperature <- "T_Air"          # <-- assign here the column name correspond
 
 wind_speed <- "Wind_Speed"          # <-- assign here the column name corresponding with wind speed parameter. Default (LTER stations) is "Wind_Speed" 
 
+increment_threshold <- 0.002        # <-- assign here the threshold on derivative  . Default is 0.001 m (1 mm/h of snow correspond to 0.1 mm/h of water whith rho = 100 kg/m³)
 # ===================
 
 # ~~~~~~ Section 2 ~~~~~~ 
@@ -71,8 +76,11 @@ wind_speed <- "Wind_Speed"          # <-- assign here the column name correspond
 # ====== RUN ESOLIP ALGORITHM ======
 
 t1=Sys.time()
-SWE_snowfall = SWE_estimation(PATH = path,FILE = file, PATH_SNOW = path_filtered_snow, FILE_SNOW = file_snow,git_folder = git_folder,
-                              PRECIPITATION = precipitation, AIR_TEMPERATURE = air_temperature,WIND_SPPED = wind_speed) 
+SWE_snowfall = SWE_estimation(git_folder = git_folder,PATH = path,FILE = file,
+                              PATH_SNOW = path_filtered_snow, FILE_SNOW = file_snow,
+                              PATH_ESOLIP_QC = path_esolip_qc,FILE_ESOLIP_QC = file_esolip_qc,
+                              PRECIPITATION = precipitation, AIR_TEMPERATURE = air_temperature,WIND_SPPED = wind_speed,
+                              INCREMENT_THRESHOLD = increment_threshold) 
 
 t2=Sys.time()
 
@@ -83,11 +91,17 @@ t2=Sys.time()
 # ====== SAVE RESULTS IN A .RData OR IN TWO .csv ======
 
 list2env(SWE_snowfall, .GlobalEnv)
-SWE_dataframe=data.frame(index(SWE), as.numeric(SWE))
+SWE_dataframe=data.frame(index(SWE), as.numeric(SWE_filtered))
 colnames(SWE_dataframe)=c("TIMESTAMP","SWE")
+rho_dataframe=data.frame(index(rho), as.numeric(rho))
+colnames(rho_dataframe)=c("TIMESTAMP","rho")
 
-save(SWE_snowfall,file=paste(git_folder,"/data/Output/SWE_from_snow_height_RData/SWE_analysis_",substring(file,1,nchar(file)-4), ".RData",sep=""))
+new_list=c(SWE_snowfall,increment_threshold)
+names(new_list)[length(new_list)]="increment_threshold"
+
+save(new_list,file=paste(git_folder,"/data/Output/SWE_from_snow_height_RData/SWE_analysis_",substring(file,1,nchar(file)-4), ".RData",sep=""))
 write.csv(SWE_dataframe,paste(git_folder,"/data/Output/SWE_from_snow_height/SWE_",file,sep = ""),quote = F,row.names = F,na = "NaN")
+write.csv(rho_dataframe,paste(git_folder,"/data/Output/SWE_from_snow_height/rho_",file,sep = ""),quote = F,row.names = F,na = "NaN")
 
 # ================================== 
 
