@@ -10,7 +10,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-The R package SnowSeasonAnalysis contains some tools for the quality check of precipitation data and for snow analysis. 
+The R package SnowSeasonAnalysis contains some tools for the quality check of precipitation data and for snow analysis.  
+Main scripts are:
+- **EOLIP_QC.R** This function is the core to generate metadata to evaluate precipitation. In particular the algorithm has different steps that check some additional information excluding period which precipitation is improbable or identify possible events of snow melting, irrigation, dew, fog or dirt in the tipping rain gauges. It is based on paper ESOLIP, Mair et al. 
+- **Filtering_precipitation_readings.R** The script classifys every precipitation measurement of tipping rain gauge in different class using additional parameters measured on the station. 
+- **Filtering_snow_height.R** to increase data quality of snow height signal measured with a sonic snow height sensor.
+- **Snow_detection_TS_PAR.R** analyzes Soil Temperature (TS) and Photosynthetically active radiation (PAR) to extract snow presence near a station. 
+- **Visualize_Filtering_precipitation_readings.R** plots using an app Shiny the time series of precipitation with the classification. 
+- **Visualize_Filtering_snow_height.R** plots using dygraph the time series of snow height (HS) and the elaborations of those data. 
+- **Visualize_Snow_detection_TS_PAR.R** plots using dygraph the classification of snow presence.
+
 
 
 ## Installation
