@@ -10,7 +10,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-The R package SnowSeasonAnalysis contains some tools for the quality check of precipitation data and for snow analysis.  
+The R package SnowSeasonAnalysis contains some tools for the quality check of precipitation data and for snow analysis.
+
+It could be useful to estimate precipitation totals from snow depth measurement sensors following the approach described here:
+
+Mair, E., Leitinger, G., Della Chiesa, S., Niedrist, G., Tappeiner, U., & Bertoldi, G. (2016). A simple method to combine snow height and meteorological observations to estimate winter precipitation at sub-daily resolution. Hydrological Sciences Journal, 61(11), 2050–2060.
+https://doi.org/10.1080/02626667.2015.1081203 
+
+
+
 Main scripts are:
 - **EOLIP_QC.R** This function is the core to generate metadata to evaluate precipitation. In particular the algorithm has different steps that check some additional information excluding period which precipitation is improbable or identify possible events of snow melting, irrigation, dew, fog or dirt in the tipping rain gauges. It is based on paper ESOLIP, Mair et al. 
 - **Filtering_precipitation_readings.R** The script classifys every precipitation measurement of tipping rain gauge in different class using additional parameters measured on the station. 
